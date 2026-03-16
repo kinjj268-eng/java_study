@@ -1,9 +1,10 @@
-package 에어컨실습; // '에어컨실습'이라는 주머니(패키지)에 담겨 있어요
+package 에어컨만들기;
 
-import java.util.Calendar; // 날짜와 시간 정보를 가져오는 도구
-import java.util.InputMismatchException; // 숫자를 넣어야 하는데 문자를 넣는 등 '잘못된 입력' 에러 처리 도구
-import java.util.Scanner; // 키보드 입력 도구
-import static java.lang.Thread.sleep; // 시간을 잠깐 멈추게 하는 마법(실시간 시뮬레이션용)
+import java.util.Calendar;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import static java.lang.Thread.sleep;
 
 public class AirCon {
     // [인스턴스 필드] 에어컨의 상태값들 (Heap 영역에 저장)

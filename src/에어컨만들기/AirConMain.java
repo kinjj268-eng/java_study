@@ -3,7 +3,7 @@ package 에어컨만들기;
 import java.util.Scanner;
 public class AirConMain {
     public static void main(String[] args) {
-        에어컨실습.AirCon lgAirCon = new 에어컨실습.AirCon();
+        에어컨만들기.AirCon lgAirCon = new 에어컨만들기.AirCon();
         Scanner sc = new Scanner(System.in);
 
         System.out.print("에어컨을 켜시겠습니까? (yes / no) : ");
