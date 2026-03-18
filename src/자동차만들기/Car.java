@@ -1,53 +1,93 @@
 package 자동차만들기;
 
 public abstract class Car {
-    protected int speed; // 최고 속도
-    protected double mileage; // 연비
-    protected int tank; // 연료탱크 크기
-    protected int seat; // 좌석 수
-    protected String name; // 자동차 이름
+    // protected: 자식 클래스(Bus, Sedan 등)에게는 오픈하지만 외부에서는 숨기는 변수들
+    protected int speed;
+    protected double mileage;
+    protected int tank;
+    protected int seat;
+    protected String name;
 
-    public Car(int Speed, double mileage, int tank, int seat, String name) {
-        this.speed = Speed;
+    // [생성자]: 자동차가 처음 만들어질 때(new) 필수 정보를 주입받는 통로
+    public Car(int speed, double mileage, int tank, int seat, String name) {
+        this.speed = speed; // 매개변수로 받은 speed를 클래스의 변수에 저장
         this.mileage = mileage;
         this.tank = tank;
         this.seat = seat;
         this.name = name;
+
+    }
+
+    // [Getter/Setter]: 변수를 안전하게 읽거나 수정하기 위한 '보호된 버튼'들
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public double getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(double mileage) {
+        this.mileage = mileage;
+    }
+
+    public int getTank() {
+        return tank;
+    }
+
+    public void setTank(int tank) {
+        this.tank = tank;
+    }
+
+    public int getSeat() {
+        return seat;
+    }
+
+    public void setSeat(int seat) {
+        this.seat = seat;
     }
 
     public String getName() {
         return name;
     }
 
-    int moveCnt(int passCnt) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // [공통 기능 1] moveCnt: 총 몇 번 이동해야 하는지 계산
+    public int moveCnt(int passCnt) {
         return (int) Math.ceil((double) passCnt / seat);
     }
 
-    public int refuel(int fuel, int moveCnt) {
-        double totalDist = (double) fuel * moveCnt;
-        double consum = totalDist / this.mileage;
-        return (int) Math.ceil(consum / this.tank);
+    // [공통 기능 2] refuel: 주유를 총 몇 번 해야 하는지 계산
+    public int refuel(double distance, int moveCnt) {
+        double totalDistance = distance * moveCnt; // 한 번 가는 거리 * 총 횟수 = 전체 거리
+        double totalFuelConsumption = totalDistance / mileage;// 전체 거리 / 연비 = 소모된 연료량
+        // 소모된 연료 / 탱크 용량 후 올림 처리하여 주유 횟수 도출
+        return (int) Math.ceil(totalFuelConsumption / tank);
     }
 
-    // 총 비용 계산
-    public long cost(int fuel, int moveCnt) {
-        double consum = (double) (fuel * moveCnt) / this.mileage;
-        return (long) (consum * 2000);
+    // [공통 기능 3] cost: 총 연료 비용 계산
+    public int cost(double distance, int moveCnt) {
+        double totalDistance = distance * moveCnt;// 총 이동 거리
+        double totalFuelConsumption = totalDistance / mileage;// 총 연료량
+        // 연료량에 2000원(상수)을 곱하고 정수(int)로 변환
+        return (int) (totalFuelConsumption * 2000);
     }
 
-    // 총 이동 시간 계산
-    public String time(int fuel, int moveCnt, int weather) {
-        double totalDist = (double) fuel * moveCnt;
-        double timeValue = totalDist / this.speed;
-
-        if (weather == 2) timeValue = 1.2;      // 비
-        else if (weather == 3) timeValue = 1.4; // 눈
-
-        int totalMin = (int) (timeValue * 60);
-        return (totalMin / 60) + "시간 " + (totalMin % 60) + "분";
+    // [공통 기능 4] distanceTime: 총 이동 시간 계산
+    public double distanceTime(double distance, double speed, int moveCnt, double weather) {
+        // (거리 / 속도): 한 번 갈 때 시간. 거기에 횟수(moveCnt)와 날씨 가중치(weather)를 곱함
+        return (distance / speed) * moveCnt * weather;
     }
 
-    abstract void setMode(boolean isOn);
-
+    // [추상 메서드] setMode: 자식들마다 기능이 다르므로 이름만 정해둠(반드시 구현해야 함)
+    // abstract void: 몸체 { }가 없음. 구현은 자식(Bus, Sedan 등)이 알아서 함
+    public abstract void setMode(boolean isOn);
 
 }
