@@ -8,7 +8,7 @@ public class Sedan extends Car implements CarInterface, AudioSupport, AutoPilotS
     private boolean seatOn = false;
 
     public Sedan(String name) {
-        super(200, 12.0, 45, 4, name);
+        super(200, 12.0, 45, 4, "BMW i7 M70");
     }
 
     @Override

@@ -127,10 +127,10 @@ public class CarMain {
         }
         sc.nextLine();
         // 결과 출력: 매개변수로 사용자 데이터(거리)와 계산 데이터(이동횟수)를 전달
-        System.out.println("\n========= 이동 결과 =========");
+        System.out.println("\n=========" + car.getName() + "=========");
         // car.moveCnt(passCnt)를 매개변수로 넣어 '총 이동 횟수'를 실시간으로 배달
         System.out.println("총 비용 : " + car.cost(distance, car.moveCnt(passCnt)) + "원");
-        System.out.println("주유 횟수 : " + car.refuel(distance, car.moveCnt(passCnt)) + "회");
+        System.out.println("총 주유 횟수 : " + car.refuel(distance, car.moveCnt(passCnt)) + "회");
 
         // 매개변수 순서 주의: distance, speed, moveCnt, weatherWeight
         // 1. 소수점이 포함된 전체 시간 계산 (예: 4.52)
@@ -146,14 +146,20 @@ public class CarMain {
 // 4. 출력하기
         System.out.println("총 이동 시간 : " + (totalMinutes / 60) + "시간 " + (totalMinutes % 60) + "분");
         System.out.println("총 이동 횟수 : " + car.moveCnt(passCnt) + "회");
+        // 1. 에어컨 상태 출력 (CarInterface를 구현한 모든 차 대상)
         if (car instanceof CarInterface) {
-            System.out.println("에어컨 : " + (((Sedan) car).isAirconOn() ? "ON" : "OFF"));
+            // 특정 클래스가 아닌 인터페이스로 캐스팅!
+            System.out.println("에어컨 : " + (((CarInterface) car).isAirconOn() ? "ON" : "OFF"));
         }
+
+// 2. 오디오 상태 출력 (AudioSupport를 구현한 모든 차 대상)
         if (car instanceof AudioSupport) {
-            System.out.println("오디오 : " + (((Sedan) car).isAudioOn() ? "ON" : "OFF"));
+            System.out.println("오디오 : " + (((AudioSupport) car).isAudioOn() ? "ON" : "OFF"));
         }
+
+// 3. 자율주행 상태 출력 (AutoPilotSupport를 구현한 모든 차 대상)
         if (car instanceof AutoPilotSupport) {
-            System.out.println("자율주행 : " + (((Sedan) car).isAutoPilotOn() ? "ON" : "OFF"));
+            System.out.println("자율주행 : " + (((AutoPilotSupport) car).isAutoPilotOn() ? "ON" : "OFF"));
         }
         System.out.println("============================");
     }

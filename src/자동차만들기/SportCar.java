@@ -6,7 +6,7 @@ public class SportCar extends Car implements CarInterface, AudioSupport {
 
     public SportCar(String name) {
         // 속도 250, 연비 8.0, 탱크 60, 좌석 2
-        super(250, 8.0, 60, 2, name);
+        super(250, 8.0, 60, 2, "람보르기니");
     }
 
     @Override
